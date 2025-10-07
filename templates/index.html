@@ -1,14 +1,140 @@
 {% extends "base.html" %}
 
+{% block title %}Portfolio — Sharon G Varghese{% endblock %}
+
 {% block content %}
-    <!-- MAIN -->
-    <main class="pt-5" id="home">
-      <!-- HERO / INTRO -->
-      <section class="container min-vh-100 d-flex align-items-center justify-content-center text-center">
-        <div class="py-5">
-          <h1 class="display-5 fw-bold mb-3">Hello! I'm <span class="text-gradient">Sharon G Varghese</span></h1>
-          <p class="lead text-muted mb-4">Python Developer • Flask • Django • Git</p>
-          <a href="#projects" class="btn btn-dark btn-lg">View Projects</a>
+<!-- HERO / INTRO -->
+<section class="container min-vh-100 d-flex align-items-center justify-content-center text-center" id="home">
+  <div class="py-5">
+    <h1 class="display-5 fw-bold mb-3">Hello! I'm <span class="text-gradient">Sharon G Varghese</span></h1>
+    <p class="lead text-muted mb-4">Python Developer • Flask • Django • Git</p>
+    <a href="#projects" class="btn btn-dark btn-lg">View Projects</a>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="py-5 border-top bg-white">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col text-center">
+        <h2 class="h3 fw-bold mb-1">Skills</h2>
+        <p class="text-muted">My core technical stack</p>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="skill-card text-center p-4 h-100 shadow-sm">
+          <div class="skill-icon mb-3"><i class="bi bi-code-slash display-5 text-dark"></i></div>
+          <h5 class="fw-semibold mb-2">Languages</h5>
+          <p class="small text-muted">Python, HTML, CSS, JavaScript</p>
         </div>
-      </section>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="skill-card text-center p-4 h-100 shadow-sm">
+          <div class="skill-icon mb-3"><i class="bi bi-layers display-5 text-dark"></i></div>
+          <h5 class="fw-semibold mb-2">Frameworks</h5>
+          <p class="small text-muted">Flask, Django, Bootstrap</p>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="skill-card text-center p-4 h-100 shadow-sm">
+          <div class="skill-icon mb-3"><i class="bi bi-tools display-5 text-dark"></i></div>
+          <h5 class="fw-semibold mb-2">Tools</h5>
+          <p class="small text-muted">Git, GitHub, Docker (basics)</p>
+        </div>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="skill-card text-center p-4 h-100 shadow-sm">
+          <div class="skill-icon mb-3"><i class="bi bi-database display-5 text-dark"></i></div>
+          <h5 class="fw-semibold mb-2">Databases</h5>
+          <p class="small text-muted">SQLite, PostgreSQL</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="py-5 bg-light border-top">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col text-center">
+        <h2 class="h3 fw-bold mb-1">Projects</h2>
+        <p class="text-muted">Version 1 — placeholder cards (replace later with your real projects)</p>
+      </div>
+    </div>
+
+    <div class="row g-4">
+      {% for i in range(1,4) %}
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="project-card h-100">
+          <div class="project-thumb">
+            <div class="thumb-fallback d-flex align-items-center justify-content-center">
+              <span class="fw-semibold">Project {{ i }}</span>
+            </div>
+          </div>
+          <div class="p-3">
+            <h3 class="h5 mb-1">Nice Animated Card {{ i }}</h3>
+            <p class="text-muted small mb-3">Short description placeholder. Swap this with your project summary and links.</p>
+            <div class="d-flex gap-2">
+              <a href="#" class="btn btn-sm btn-outline-dark disabled">Live</a>
+              <a href="#" class="btn btn-sm btn-outline-secondary disabled">Source</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-5 border-top bg-white">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col text-center">
+        <h2 class="h3 fw-bold mb-1">Contact</h2>
+        <p class="text-muted">Send a quick message</p>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-8">
+        {% with messages = get_flashed_messages(with_categories=True) %}
+          {% if messages %}
+            {% for category, msg in messages %}
+              <div class="alert alert-{{ 'success' if category=='success' else 'info' }} alert-dismissible fade show" role="alert">
+                {{ msg }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <form method="POST" class="card shadow-sm border-0 p-3 p-md-4">
+          <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="Your name" required>
+          </div>
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="you@example.com" required>
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Message</label>
+            <textarea class="form-control" id="message" name="message" rows="4" placeholder="How can I help?" required></textarea>
+          </div>
+          <div class="d-grid d-md-flex gap-2">
+            <button class="btn btn-dark" type="submit">Send</button>
+            <a class="btn btn-outline-secondary" href="#home">Back to top</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}
