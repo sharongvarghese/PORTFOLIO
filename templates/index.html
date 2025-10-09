@@ -64,31 +64,47 @@
     <div class="row mb-4">
       <div class="col text-center">
         <h2 class="h3 fw-bold mb-1">Projects</h2>
-        <p class="text-muted">Version 1 — placeholder cards (replace later with your real projects)</p>
+        <p class="text-muted">Showcasing my work</p>
       </div>
     </div>
 
+    {% if projects %}
     <div class="row g-4">
-      {% for i in range(1,4) %}
+      {% for project in projects %}
       <div class="col-12 col-md-6 col-lg-4">
-        <div class="project-card h-100">
+        <div class="project-card h-100 shadow-sm">
           <div class="project-thumb">
-            <div class="thumb-fallback d-flex align-items-center justify-content-center">
-              <span class="fw-semibold">Project {{ i }}</span>
-            </div>
+            {% if project.image %}
+              <img src="{{ project.image }}" alt="{{ project.title }}" class="img-fluid rounded-top">
+            {% else %}
+              <div class="thumb-fallback d-flex align-items-center justify-content-center">
+                <span class="fw-semibold">{{ project.title }}</span>
+              </div>
+            {% endif %}
           </div>
           <div class="p-3">
-            <h3 class="h5 mb-1">Nice Animated Card {{ i }}</h3>
-            <p class="text-muted small mb-3">Short description placeholder. Swap this with your project summary and links.</p>
+            <h3 class="h5 mb-1">{{ project.title }}</h3>
+            <p class="text-muted small mb-3">{{ project.description }}</p>
             <div class="d-flex gap-2">
-              <a href="#" class="btn btn-sm btn-outline-dark disabled">Live</a>
-              <a href="#" class="btn btn-sm btn-outline-secondary disabled">Source</a>
+              {% if project.link %}
+                <a href="{{ project.link }}" target="_blank" class="btn btn-sm btn-outline-dark">Live</a>
+              {% else %}
+                <a href="#" class="btn btn-sm btn-outline-dark disabled">Live</a>
+              {% endif %}
+              {% if project.source %}
+                <a href="{{ project.source }}" target="_blank" class="btn btn-sm btn-outline-secondary">Source</a>
+              {% else %}
+                <a href="#" class="btn btn-sm btn-outline-secondary disabled">Source</a>
+              {% endif %}
             </div>
           </div>
         </div>
       </div>
       {% endfor %}
     </div>
+    {% else %}
+      <p class="text-center text-muted">No projects added yet. Check back soon!</p>
+    {% endif %}
   </div>
 </section>
 

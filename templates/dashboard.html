@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Portfolio — Sharon G Varghese{% endblock %}
+
+{% block content %}
+<section class="container text-center mt-5">
+    <h2 class="mb-4">Admin Dashboard</h2>
+    <a href="{{ url_for('add_project') }}" class="btn btn-success mb-3">Add New Project</a>
+    <a href="{{ url_for('logout') }}" class="btn btn-danger mb-3">Logout</a>
+    
+    <table class="table table-bordered">
+        <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Image</th>
+        <th>Live</th>
+        <th>Source</th>
+        <th>Actions</th>
+        </tr>
+        {% for p in projects %}
+        <tr>
+        <td>{{ p.title }}</td>
+        <td>{{ p.description[:50] }}...</td>
+        <td>
+            {% if p.image %}<img src="{{ p.image }}" width="100">{% endif %}
+        </td>
+        <td>{{ p.link or '-' }}</td>
+        <td>{{ p.source or '-' }}</td>
+        <td>
+            <a href="{{ url_for('edit_project', id=p.id) }}" class="btn btn-sm btn-primary">Edit</a>
+            <form method="POST" action="{{ url_for('delete_project', id=p.id) }}" style="display:inline-block;">
+            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Delete this project?')">Delete</button>
+            </form>
+        </td>
+        </tr>
+        {% endfor %}
+    </table>        
+</section>
+{% endblock %}

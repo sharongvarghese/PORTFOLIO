@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Portfolio — Sharon G Varghese{% endblock %}
+
+{% block content %}
+<section class="container  text-center mt-5">
+  <h3 class="mb-4">{% if project %}Edit{% else %}Add{% endif %} Project</h3>
+  <form method="POST" class="mx-auto" style="max-width: 600px;">
+    <input type="text" name="title" class="form-control mb-3" placeholder="Title" value="{{ project.title if project else '' }}" required>
+    <textarea name="description" class="form-control mb-3" placeholder="Description" rows="4" required>{{ project.description if project else '' }}</textarea>
+    <input type="text" name="image" class="form-control mb-3" placeholder="Image URL" value="{{ project.image if project else '' }}">
+    <input type="text" name="link" class="form-control mb-3" placeholder="Live URL" value="{{ project.link if project else '' }}">
+    <input type="text" name="source" class="form-control mb-3" placeholder="Source URL" value="{{ project.source if project else '' }}">
+    <button class="btn btn-primary">{% if project %}Update{% else %}Add{% endif %} Project</button>
+    <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Cancel</a>
+  </form>
+</section>
+{% endblock %}
+
+
