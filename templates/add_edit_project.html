@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}{% if project %}Edit{% else %}Add{% endif %} Project — Sharon G Varghese{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/add_edit_project_style.css') }}">
+
+
+
+<section class="container fade-in mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="project-form-card">
+        <h3 class="text-center mb-4 fw-bold">{% if project %}Edit{% else %}Add{% endif %} Project</h3>
+
+        <form method="POST">
+          <div class="mb-3">
+            <input type="text" name="title" class="form-control" placeholder="Title" value="{{ project.title if project else '' }}" required>
+          </div>
+          <div class="mb-3">
+            <textarea name="description" class="form-control" placeholder="Description" rows="4" required>{{ project.description if project else '' }}</textarea>
+          </div>
+          <div class="mb-3">
+            <input type="text" name="image" class="form-control" placeholder="Image URL" value="{{ project.image if project else '' }}">
+          </div>
+          <div class="mb-3">
+            <input type="text" name="link" class="form-control" placeholder="Live URL" value="{{ project.link if project else '' }}">
+          </div>
+          <div class="mb-3">
+            <input type="text" name="source" class="form-control" placeholder="Source URL" value="{{ project.source if project else '' }}">
+          </div>
+
+          <div class="d-flex justify-content-between">
+            <button class="btn btn-primary btn-animated" type="submit">
+              {% if project %}Update{% else %}Add{% endif %} Project
+            </button>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-secondary btn-animated">Cancel</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

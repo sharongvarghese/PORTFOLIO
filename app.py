@@ -32,7 +32,7 @@ def admin_login():
             flash("Login successful!", "success")
             return redirect(url_for('dashboard'))
         flash("Invalid credentials!", "danger")
-    return render_template('admin_login.html')
+    return render_template('admin_login.html', hide_navbar=True)
 
 # Admin dashboard
 @app.route('/dashboard')
@@ -40,7 +40,7 @@ def dashboard():
     if 'admin' not in session:
         return redirect(url_for('admin_login'))
     projects = Project.query.all()
-    return render_template('dashboard.html', projects=projects)
+    return render_template('dashboard.html', projects=projects, hide_navbar=True)
 
 # Add new project
 @app.route('/add_project', methods=['GET', 'POST'])
@@ -59,7 +59,7 @@ def add_project():
         db.session.commit()
         flash("Project added successfully!", "success")
         return redirect(url_for('dashboard'))
-    return render_template('add_project.html')
+    return render_template('add_edit_project.html', project=None, hide_navbar=True)
 
 # Edit project
 @app.route('/edit_project/<int:id>', methods=['GET', 'POST'])
@@ -76,7 +76,7 @@ def edit_project(id):
         db.session.commit()
         flash("Project updated successfully!", "success")
         return redirect(url_for('dashboard'))
-    return render_template('edit_project.html', project=project)
+    return render_template('add_edit_project.html', project=project, hide_navbar=True)
 
 # Delete project
 @app.route('/delete_project/<int:id>', methods=['POST'])
